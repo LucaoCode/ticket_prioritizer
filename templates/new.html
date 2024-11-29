@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Ticket</title>
+</head>
+<body>
+    <h1>Criar Novo Ticket</h1>
+    <form method="POST">
+        <label for="description">Descrição:</label><br>
+        <input type="text" id="description" name="description" required><br><br>
+
+        <label for="category">Categoria:</label><br>
+        <select id="category" name="category" required>
+            <option value="Técnico">Técnico</option>
+            <option value="Financeiro">Financeiro</option>
+            <option value="Outros">Outros</option>
+        </select><br><br>
+
+        <label for="impact">Impacto:</label><br>
+        <select id="impact" name="impact" required>
+            <option value="Alta">Alta</option>
+            <option value="Média">Média</option>
+            <option value="Baixa">Baixa</option>
+        </select><br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

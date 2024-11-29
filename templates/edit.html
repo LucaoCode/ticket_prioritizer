@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Ticket</title>
+</head>
+<body>
+    <h1>Editar Ticket</h1>
+    <form method="POST">
+        <label for="description">Descrição:</label><br>
+        <input type="text" id="description" name="description" value="{{ ticket.description }}" required><br><br>
+
+        <label for="category">Categoria:</label><br>
+        <select id="category" name="category" required>
+            <option value="Técnico" {% if ticket.category == "Técnico" %}selected{% endif %}>Técnico</option>
+            <option value="Financeiro" {% if ticket.category == "Financeiro" %}selected{% endif %}>Financeiro</option>
+            <option value="Outros" {% if ticket.category == "Outros" %}selected{% endif %}>Outros</option>
+        </select><br><br>
+
+        <label for="impact">Impacto:</label><br>
+        <select id="impact" name="impact" required>
+            <option value="Alta" {% if ticket.impact == "Alta" %}selected{% endif %}>Alta</option>
+            <option value="Média" {% if ticket.impact == "Média" %}selected{% endif %}>Média</option>
+            <option value="Baixa" {% if ticket.impact == "Baixa" %}selected{% endif %}>Baixa</option>
+        </select><br><br>
+
+        <button type="submit">Atualizar</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tickets</title>
+</head>
+<body>
+    <h1>Lista de Tickets</h1>
+    <a href="/new">Novo Ticket</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Impacto</th>
+            <th>Ações</th>
+        </tr>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.description }}</td>
+            <td>{{ ticket.category }}</td>
+            <td>{{ ticket.impact }}</td>
+            <td>
+                <a href="/edit/{{ ticket.id }}">Editar</a>
+                <a href="/delete/{{ ticket.id }}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
