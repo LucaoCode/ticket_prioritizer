@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 
+
 app = Flask(__name__)
 
 # Lista para armazenar os tickets (simulação de banco de dados)
 tickets = []
+ticketsConcluidos = [{
+    "id": 1,
+    "description": "Ticket 1",
+    "category": "tecnico",
+    "impact": "Alta",
+}]
 
 # Página principal: exibe todos os tickets (Read)
 @app.route("/")
@@ -18,6 +25,7 @@ def new_ticket():
         description = request.form.get("description")
         category = request.form.get("category")
         impact = request.form.get("impact")
+          # Inicialmente, considera o ticket como novo
 
         # Adiciona o ticket à lista
         ticket = {
@@ -58,6 +66,15 @@ def delete_ticket(ticket_id):
     # Remove o ticket pelo ID
     tickets = [t for t in tickets if t["id"] != ticket_id]
     return redirect(url_for("home"))
+
+@app.route("/concluidos/<int:ticket_id>", methods=["GET", "POST"])
+def concluido(ticket_id):
+    for ticket in tickets:
+        if ticket["id"] == ticket_id:
+            ticketsConcluidos.append(ticket)  # Adiciona aos concluídos
+            tickets.remove(ticket)  # Remove da lista de pendentes
+            break
+    return render_template("concluidos.html", ticketsConcluidos=ticketsConcluidos)  
 
 if __name__ == "__main__":
     app.run(debug=True)
