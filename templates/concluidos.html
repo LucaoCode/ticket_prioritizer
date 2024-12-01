@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Styles/concluido.css') }}" media="screen" />
+    <title>Tickets Concluídos</title>
+</head>
+<body>
+    <h1>Lista de Tickets Concluídos</h1>
+    <a class="pendente" href="/">Voltar para Tickets Pendentes</a>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Impacto</th>
+        </tr>
+        {% for ticket in ticketsConcluidos %}
+        <tr>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.description }}</td>
+            <td>{{ ticket.category }}</td>
+            <td>{{ ticket.impact }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
