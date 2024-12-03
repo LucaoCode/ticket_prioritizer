@@ -5,17 +5,20 @@ app = Flask(__name__)
 
 # Lista para armazenar os tickets (simulação de banco de dados)
 tickets = []
-ticketsConcluidos = [{
-    "id": 1,
-    "description": "Ticket 1",
-    "category": "tecnico",
-    "impact": "Alta",
-}]
+ticketsConcluidos = []
 
 # Página principal: exibe todos os tickets (Read)
 @app.route("/")
 def home():
-    return render_template("index.html", tickets=tickets)
+    return render_template("index.html", tickets=sorted(tickets,key=ordena_ticket))
+
+def ordena_ticket(ticket):
+    impact_sort_mapping = {
+        "Alta": 1,
+        "Média": 2,
+        "Baixa": 3,
+    }
+    return impact_sort_mapping[ticket["impact"]]
 
 # Página para criar um novo ticket (Create)
 @app.route("/new", methods=["GET", "POST"])
@@ -29,7 +32,7 @@ def new_ticket():
 
         # Adiciona o ticket à lista
         ticket = {
-            "id": len(tickets) + 1,  # Gera um ID simples
+            "id": len(tickets) + len(ticketsConcluidos) + 1,  # Gera um ID simples
             "description": description,
             "category": category,
             "impact": impact
@@ -68,13 +71,17 @@ def delete_ticket(ticket_id):
     return redirect(url_for("home"))
 
 @app.route("/concluidos/<int:ticket_id>", methods=["GET", "POST"])
-def concluido(ticket_id):
+def ticket_concluido(ticket_id):
     for ticket in tickets:
         if ticket["id"] == ticket_id:
             ticketsConcluidos.append(ticket)  # Adiciona aos concluídos
             tickets.remove(ticket)  # Remove da lista de pendentes
             break
-    return render_template("concluidos.html", ticketsConcluidos=ticketsConcluidos)  
+    return render_template("index.html", tickets=sorted(tickets,key=ordena_ticket))
+
+@app.route("/concluidos", methods=["GET"])
+def list_concluidos():
+    return render_template("concluidos.html", ticketsConcluidos=ticketsConcluidos)
 
 if __name__ == "__main__":
     app.run(debug=True)
