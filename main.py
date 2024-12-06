@@ -71,6 +71,11 @@ def edit_ticket(ticket_id):
         ticket["description"] = request.form.get("description")
         ticket["category"] = request.form.get("category")
         ticket["impact"] = request.form.get("impact")
+        ticket["data_de_resolucao"] = request.form.get("resolution_date")
+
+        # Converte a data de resolução para o formato desejado
+        if ticket["data_de_resolucao"]:
+            ticket["data_de_resolucao"] = datetime.strptime(ticket["data_de_resolucao"], "%Y-%m-%d").strftime("%d/%m/%Y")
 
         # Redireciona para a página principal
         return redirect(url_for("home"))
