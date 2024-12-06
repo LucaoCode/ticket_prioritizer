@@ -12,7 +12,7 @@ Este projeto é um CRUD(Create,Read,Update,Delete) de gerenciamento de uma lista
 
 ## 🫡 Apresentação do Projeto
 
-**[Link para Apresentação do projeto!](coloque o link aki)**
+**[Link para Apresentação do projeto!](https://youtu.be/qyOQInaXm74)**
 
 ## 🌶️ Tecnologias utilizadas
 
