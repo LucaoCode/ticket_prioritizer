@@ -18,6 +18,8 @@
             <th>Descrição</th>
             <th>Categoria</th>
             <th>Impacto</th>
+            <th>Data de criação</th>
+            <th>Data de Resolução</th>
             <th>Ações</th>
         </tr>
         {% for ticket in tickets %}
@@ -26,6 +28,8 @@
             <td>{{ ticket.description }}</td>
             <td>{{ ticket.category }}</td>
             <td>{{ ticket.impact }}</td>
+            <td>{{ ticket.data_de_criacao }}</td>
+            <td>{{ ticket.data_de_resolucao }}</td>
             <td>
                 <a class="edit" href="/edit/{{ ticket.id }}">Editar</a>
                 <a class="delete" href="/delete/{{ ticket.id }}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
