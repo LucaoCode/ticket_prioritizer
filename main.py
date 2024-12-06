@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime
 
 
 app = Flask(__name__)
@@ -18,7 +19,13 @@ def ordena_ticket(ticket):
         "Média": 2,
         "Baixa": 3,
     }
-    return impact_sort_mapping[ticket["impact"]]
+    # Convertendo a data de resolução para comparação (assumindo o formato "dd/mm/yyyy")
+    resolution_date = datetime.strptime(ticket["data_de_resolucao"], "%d/%m/%Y") if ticket["data_de_resolucao"] else datetime.max
+    
+    return resolution_date,impact_sort_mapping[ticket["impact"]]
+
+
+
 
 # Página para criar um novo ticket (Create)
 @app.route("/new", methods=["GET", "POST"])
@@ -28,14 +35,22 @@ def new_ticket():
         description = request.form.get("description")
         category = request.form.get("category")
         impact = request.form.get("impact")
-          # Inicialmente, considera o ticket como novo
+        creation_date = datetime.now().strftime("%d/%m/%Y")
+        resolution_date = request.form.get("resolution_date")
+        # Inicialmente, considera o ticket como novo
+
+        # Converte a data de resolução para o formato desejado
+        if resolution_date:
+            resolution_date = datetime.strptime(resolution_date, "%Y-%m-%d").strftime("%d/%m/%Y")
 
         # Adiciona o ticket à lista
         ticket = {
             "id": len(tickets) + len(ticketsConcluidos) + 1,  # Gera um ID simples
             "description": description,
             "category": category,
-            "impact": impact
+            "impact": impact,
+            "data_de_criacao": creation_date,
+            "data_de_resolucao": resolution_date
         }
         tickets.append(ticket)
 
