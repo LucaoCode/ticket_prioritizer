@@ -26,6 +26,10 @@
             <option value="Baixa" {% if ticket.impact == "Baixa" %}selected{% endif %}>Baixa</option>
         </select><br><br>
 
+        <!-- Campo para selecionar a data de resolução -->
+        <label for="resolution_date">Data de Resolução:</label><br>
+        <input type="date" id="resolution_date" name="resolution_date" required><br><br>
+
         <button type="submit">Atualizar</button>
     </form>
 </body>
